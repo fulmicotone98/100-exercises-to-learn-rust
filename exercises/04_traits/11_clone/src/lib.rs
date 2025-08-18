@@ -2,13 +2,23 @@
 //  to get the code to compile.
 
 pub fn summary(ticket: Ticket) -> (Ticket, Summary) {
-    (ticket, ticket.summary())
+    (ticket.clone(), ticket.summary())
 }
-
 pub struct Ticket {
     pub title: String,
     pub description: String,
     pub status: String,
+}
+
+impl core::clone::Clone for Ticket {
+    #[inline]
+    fn clone(&self) -> Self {
+        Ticket {
+            title: core::clone::Clone::clone(&self.title),
+            description: core::clone::Clone::clone(&self.description),
+            status: core::clone::Clone::clone(&self.status),
+        }
+    }
 }
 
 impl Ticket {

@@ -13,6 +13,51 @@
 // You don't have to though: it's perfectly okay to write three separate
 // implementations manually. Venture further only if you're curious.
 
+#[allow(dead_code)]
+trait Power<Exponent = Self> {
+    type Output;
+    fn power(&self, exp: Exponent) -> Self::Output;
+}
+
+impl Power<u32> for u32 {
+    type Output = Self;
+
+    fn power(&self, exp: u32) -> Self::Output {
+        let mut res = 1;
+        for _ in 0..exp {
+            res *= *self;
+        }
+
+        res
+    }
+}
+
+impl Power<u16> for u32 {
+    type Output = Self;
+
+    fn power(&self, exp: u16) -> Self::Output {
+        let mut res: u32 = 1;
+        for _ in 0..exp {
+            res *= *self;
+        }
+
+        res
+    }
+}
+
+impl Power<&u32> for u32 {
+    type Output = Self;
+
+    fn power(&self, exp: &u32) -> Self::Output {
+        let mut res = 1;
+        for _ in 0..*exp {
+            res *= *self;
+        }
+
+        res
+    }
+}
+
 #[cfg(test)]
 mod tests {
     use super::Power;
