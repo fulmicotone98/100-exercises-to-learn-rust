@@ -6,6 +6,7 @@ use ticket_fields::{TicketDescription, TicketTitle};
 //   the `Vec<Ticket>` field in `TicketStore`. Look at the standard library documentation
 //   for `Vec` to find the right type to return from `iter`.
 #[derive(Clone)]
+#[derive(Default)]
 pub struct TicketStore {
     tickets: Vec<Ticket>,
 }
@@ -24,15 +25,18 @@ pub enum Status {
     Done,
 }
 
+
 impl TicketStore {
     pub fn new() -> Self {
-        Self {
-            tickets: Vec::new(),
-        }
+        Self::default()
     }
 
     pub fn add_ticket(&mut self, ticket: Ticket) {
         self.tickets.push(ticket);
+    }
+
+    pub fn iter(&self) -> std::slice::Iter<'_, Ticket> {
+        self.tickets.iter()
     }
 }
 
